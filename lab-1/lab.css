@@ -1,0 +1,8 @@
+.row {
+        display: block;
+        padding: 0.2em 0.5em;
+        border-radius: 4px;
+        box-shadow: 0px 2px 16px #0004;
+        margin-bottom: 0.5em;
+
+    }
