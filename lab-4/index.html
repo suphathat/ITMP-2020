@@ -22,7 +22,7 @@
 				'--l':l+'%',
 			}"
 				:data-pick="i == pick"
-				@click="check(i)"
+				@click="check(i == pick)"
 				></a-dot>
 			</main>
 		</section>
@@ -47,21 +47,37 @@
 			data:{
 				row:2, //จำนวนแถวที่จะมีในรอบนี้
 				h:200, // hue ในรอบนี้
-				time:20, //เวลาเริ่มต้น
+				time:40, //เวลาเริ่มต้น
 				score:0, //คะแนนเริ่มต้น
-				pick:2, //หมายเลขวงกลมที่จะสีแตกต่างจากก้อนอื่นๆ
+				pick:1, //หมายเลขวงกลมที่จะสีแตกต่างจากก้อนอื่นๆ
 				l:50,//ความสว่างของสีทั่วไปในรอบนี้
 			},
 			methods: {
 				check:function(e){
+						if(this.time > 0){
+							if(e){
+								this.score ++
+								this.correct()
+							}else{
+								this.score -=2
+								this.time --
+							}
+					}
 					console.log(e)
-					console.log(e.target)
-					console.log(e.target.dataset.pick)
+					//ทำให้เช็คก่อนว่าถูกมั้ย 
+				},
+				correct: function(i){
+					//เข้าด่่านต่อไป
+					this.row = rand(2,6)
+					this.pick = rand(1,this.row**2)
+					this.h = rand(1, 999)
+                    this.l = rand(30, 60) //แก้ให้ถูก
+					console.log('Correct!')
 				}
 			}
 		})
 		//ทำให้แคนวาสมี --picklight ตามที่กำหนดไว้ข้างบนนี้
-		document.querySelector('#canvas').style.setProperty('--picklight',picklight);
+		document.querySelector('#canvas').style.setProperty('--picklight',picklight);//ก๊อปไปใช้อีกทีตอนแรนดอมเข้าด่านใหม่ได้
 		
 		let counter = setInterval(()=>{
 			if (app.time>0) {
